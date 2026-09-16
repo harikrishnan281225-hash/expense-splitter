@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers\Api;
+
 use App\Http\Controllers\Controller;
 use App\Models\Expense;
 use App\Models\Member;
@@ -21,7 +22,23 @@ class ExpenseController extends Controller
         ]);
         return response()->json($expense, 201);
     }
+
     public function index($groupId) {
         return Expense::where('group_id',$groupId)->with('payer')->get();
+    }
+
+    public function destroy($groupId, $expenseId)
+    {
+        $expense = Expense::where('group_id', $groupId)
+                    ->where('id', $expenseId)
+                    ->first();
+
+        if (!$expense) {
+            return response()->json(['message' => 'Expense not found in this group'], 404);
+        }
+
+        $expense->delete();
+
+        return response()->json(['message' => 'Expense deleted successfully'], 200);
     }
 }
