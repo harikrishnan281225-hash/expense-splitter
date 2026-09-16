@@ -21,3 +21,5 @@ Route::get('/groups/{groupId}/balances', [BalanceController::class, 'show']);
 Route::get('/groups/{groupId}/settlements', [SettlementController::class, 'show']);
 Route::delete('/groups/{groupId}/members/{memberId}', [MemberController::class, 'destroy']);
 Route::delete('/groups/{groupId}/expenses/{expenseId}', [ExpenseController::class, 'destroy']);
+Route::put('/groups/{group}/members/{member}', [MemberController::class, 'update']);
+Route::put('/groups/{group}/expenses/{expense}', [ExpenseController::class, 'update']);
